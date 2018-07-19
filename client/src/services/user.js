@@ -6,37 +6,43 @@ function isLoggedIn() {
     return loggedIn;
 }
 
-async function checkLogin() {
+function checkLogin() {
     if (loggedIn) {
-        return true;
+        return Promise.resolve(true);
     } else {
         baseService.populateAuthToken();
-        try {
-            let user = await me();
+        return me()
+        .then((user) => {
             loggedIn = true;
-            return true;
-        } catch (e) {
-            return false;
-        }
+            return Promise.resolve(true);
+        }).catch(() => {
+            return Promise.resolve(false);
+        });
     }
 }
 
-async function login(email, password) {
-    let response = await baseService.makeFetch('/api/auth/login', {
+function login(email, password) {
+    return baseService.makeFetch('/api/auth/login', {
         method: 'POST',
         body: JSON.stringify({ email, password }),
         headers: new Headers({
             'Content-Type': 'application/json'
         })
+    })
+    .then((response) => {
+        if (response.ok) {
+            return response.json()
+            .then((jsonResponse) => {
+                baseService.setAuthToken(jsonResponse.token);
+                loggedIn = true;
+            });
+        } else if (response.status === 401) {
+            return response.json()
+            .then((jsonResponse) => {
+                throw jsonResponse;
+            });
+        }
     });
-    if (response.ok) {
-        let json = await response.json();
-        baseService.setAuthToken(json.token);
-        loggedIn = true;
-    } else if (response.status === 401) {
-        let json = await response.json();
-        throw json;
-    }
 }
 
 function logout() {

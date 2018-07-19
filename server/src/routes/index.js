@@ -1,15 +1,17 @@
 import { Router } from 'express';
-import peopleRouter from './people';
 import classesRouter from './classes';
 import authRouter from './auth';
 import usersRouter from './users';
-import stripeDonationsRouter from './stripeDonations';
+import blogsRouter from './blogs';
+import stripDonationRouter from './stripeDonations';
+import contactRouter from './contactform';
 import { isLoggedIn, tokenMiddleware } from '../middleware/auth.mw';
 
 let router = Router();
 
 router.use('/auth', authRouter);
-router.use('/donate', stripeDonationsRouter);
+router.use('/donate', stripDonationRouter);
+router.use('/contact', contactRouter);
 
 router.route('*')
     .post(tokenMiddleware, isLoggedIn)
@@ -17,7 +19,7 @@ router.route('*')
     .delete(tokenMiddleware, isLoggedIn);
 
 router.use('/classes', classesRouter);
-router.use('/people', peopleRouter);
+router.use('/blogs', blogsRouter);
 router.use('/users', usersRouter);
 
 export default router;

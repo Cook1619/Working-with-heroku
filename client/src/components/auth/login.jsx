@@ -15,29 +15,27 @@ class Login extends Component {
         };
     }
 
-    async componentDidMount() {
-        try {
-            let loggedIn = userService.checkLogin();
+    componentDidMount() {
+        userService.checkLogin()
+        .then((loggedIn) => {
             if (loggedIn) {
-                this.setState({ redirectToReferrer: true, checkingLogin: false});
+                this.setState({ redirectToReferrer: true, checkingLogin: false });
             } else {
                 this.setState({ checkingLogin: false });
             }
-        } catch (e) {
-            this.setState({ checkingLogin: false });
-        }
+        });
     }
 
-    async login(e) {
+    login(e) {
         e.preventDefault();
-        try {
-            await userService.login(this.state.email, this.state.password);
+        userService.login(this.state.email, this.state.password)
+        .then(() => {
             this.setState({ redirectToReferrer: true });
-        } catch (e) {
-            if (e.message) {
+        }).catch((err) => {
+            if (err.message) {
                 this.setState({ feedbackMessage: err.message });
             }
-        }
+        });
     }
 
     handleEmailChange(value) {

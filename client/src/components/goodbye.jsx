@@ -8,14 +8,9 @@ class GoodbyeWorld extends Component {
         super(props);
     }
 
-    async componentDidMount() {
-        // This is here as an example. Delete it if you wish.
-        try {
-            let classes = await classService.all();
-            console.log(classes);
-        } catch (e) {
-            console.log(e);
-        }
+    componentDidMount() {
+        classService.all()
+        .then(console.log);
     }
 
     render() {
