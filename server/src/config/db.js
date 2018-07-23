@@ -1,5 +1,5 @@
 import mysql from 'mysql';
-import { config, db } from '.';
+import { config, db } from './env/production';
 
 let pool = mysql.createPool(config.db, db);
 
