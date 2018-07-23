@@ -1,5 +1,5 @@
 import stripeLoader from 'stripe';
-import { config } from '../config';
+import { config } from '../config/env/production';
 const stripe = stripeLoader(config.STRIPE_SK); // define secret key in config folder
 
 function charge(token, amt) {
