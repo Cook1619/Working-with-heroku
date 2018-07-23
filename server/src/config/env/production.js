@@ -6,10 +6,10 @@ let cfg = {
     STRIPE_SK: process.env.STRIPE_SK,
     db: {
         connectionLimit: 10,
-        export DB_HOST='us-cdbr-iron-east-04.cleardb.net',
-        export DB_NAME='heroku_1b28e370fdccedc',
-        export DB_USER='b21ef39c5fdd16:16ae7958',
-        export DB_PASS='16ae7958'
+        DB_HOST: process.env.DB_HOST,
+        DB_USER: process.env.DB_USER,
+        DB_PASS: process.env.DB_PASS,
+        DB_NAME: process.env.DB_NAME,
     },
 };
 
