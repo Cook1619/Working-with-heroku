@@ -6,11 +6,12 @@ let cfg = {
     STRIPE_SK: process.env.STRIPE_SK,
     db: {
         connectionLimit: 10,
-        host: 'localhost',
-        user: 'blogapp',
-        password: 'blahblah',
-        database: 'blog',
+        export DB_HOST='us-cdbr-iron-east-04.cleardb.net',
+        export DB_NAME='heroku_1b28e370fdccedc',
+        export DB_USER='b21ef39c5fdd16:16ae7958',
+        export DB_PASS='16ae7958'
     },
 };
 
-export default{ cfg };
+export default { cfg };
+
