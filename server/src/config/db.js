@@ -1,7 +1,15 @@
 import mysql from 'mysql';
 import { config, db } from './env/production';
 
-let pool = mysql.createPool(config.db, db);
+// let pool = mysql.createPool(config.db, db);
+
+let pool = mysql.createPool({
+    connectionLimit: 10,
+    DB_HOST: process.env.DB_HOST,
+    DB_USER: process.env.DB_USER,
+    DB_PASS: process.env.DB_PASS,
+    DB_NAME: process.env.DB_NAME
+});
 
 async function executeQuery(sql, args = []) {
     let connection = await getConnection();
