@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import * as userServices from "../../services/registerusers";
+import * as userServices from "../services/registerusers";
 import { Link } from "react-router-dom";
 
 class Register extends Component {
